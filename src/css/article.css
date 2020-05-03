@@ -1,0 +1,67 @@
+.frame {
+    background-color: white;
+    color: #333;
+    font-family: "adobe-text-pro", georgia, times, serif;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    font-weight: 400;
+    overflow: scroll;
+}
+
+.frame p {
+    font-size: 1.25rem;
+    margin-bottom: 1.6rem;
+    font-weight: 300;
+}
+
+.site-title {
+    font-size: 2rem;
+    border-bottom: 2px solid #333;
+}
+
+.site-header {
+    margin-bottom: .8rem;
+}
+
+.article-row, .article-container {
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.article {
+    display: block;
+}
+
+.article-header {
+    margin-bottom: 1rem;
+}
+
+.article-title {
+    font-size: 3rem;
+    font-weight: 400;
+    margin-bottom: .8rem;
+    margin-top: .8rem;
+}
+
+.byline {
+    font-size: 1rem;
+    margin-bottom: .96rem;
+    color: #535353;
+}
+
+.colophon {
+    margin-top: 1.6rem;
+    padding-bottom: 1rem;
+}
+
+.colophon .copyright {
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+.center {
+    text-align: center;
+}

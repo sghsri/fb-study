@@ -1,0 +1,36 @@
+.react-image {
+    height: 20px;
+    vertical-align: bottom;
+}
+
+.react-image-container {
+    margin-right: 10px !important;
+}
+
+.like {
+    color: rgb(32, 120, 244);
+}
+
+.love {
+    color: rgb(243, 62, 88);
+}
+
+.haha {
+    color: rgb(247, 177, 37);
+}
+
+.wow {
+    color: rgb(247, 177, 37);
+}
+
+.sad {
+    color: rgb(247, 177, 37);
+}
+
+.angry {
+    color: rgb(233, 113, 15);
+}
+
+.me-comment {
+    margin-right: 5px;
+}
