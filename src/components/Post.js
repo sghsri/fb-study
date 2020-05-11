@@ -121,7 +121,7 @@ class Post extends Component {
                                         </div>
                                     </a>
                                 </li>
-                                <li className="dropdown__item" onClick={() => { this.props.reportPost(post.post_id); }}>
+                                <li className="dropdown__item" onClick={() => { this.props.toggleReport(post.post_id); }}>
                                     <a className="post__report-post dropdown__item-link">
                                         <i className="i-report-post dropdown__item-icon"></i>
                                         <div className="dropdown__item-inner">
