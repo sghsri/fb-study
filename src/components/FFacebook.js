@@ -8,6 +8,7 @@ import app from "../util/firebase.js";
 import SharePopup from "./SharePopup";
 import ReportPopup from "./ReportPopup";
 import Logger from '../logging/Logger';
+var ip = require('ip');
 
 class FFacebook extends Component {
 
@@ -24,13 +25,20 @@ class FFacebook extends Component {
     let user_id = localStorage.getItem('user_id');
     let ip_address = localStorage.getItem('ip_address');
     // console.log(user_id, ip_address);
-    if (!user_id || !ip_address) {
-      localStorage.setItem("user_id", Math.random().toString(36).substr(2, 9));
-      fetch('https://api.ipify.org/?format=json').then(resp => {
-        return resp.json();
-      }).then(resp => {
-        localStorage.setItem("ip_address", resp.ip);
-      });
+    if (!user_id) {
+      localStorage.setItem("user_id", Math.random().toString(36).substr(0, 9));
+    }
+    if (!ip_address) {
+
+      fetch('https://api.ipify.org/?format=json')
+        .then(response => {
+          return response.json();
+        })
+        .then(res => {
+          console.log(res);
+          localStorage.setItem("ip_address", res.ip);
+        })
+        .catch(err => console.log(err));
     }
   }
 
