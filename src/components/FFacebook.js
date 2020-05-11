@@ -105,13 +105,15 @@ class FFacebook extends Component {
   };
 
   reportPost = (post_id, reason) => {
-    Logger.log_action('report', 'post reported', this.state.postToReport, reason);
-    let post = this.state.static.posts.find(p => post_id === p.post_id);
-    if (post) {
-      post.is_reported = true;
-      post.is_hidden = true;
+    if (reason) {
+      Logger.log_action('report', 'post reported', this.state.postToReport, reason);
+      let post = this.state.static.posts.find(p => post_id === p.post_id);
+      if (post) {
+        post.is_reported = true;
+        post.is_hidden = true;
+      }
+      this.setState({ static: this.state.static, postToReport: null });
     }
-    this.setState({ static: this.state.static, postToReport: null });
   };
 
   async componentDidMount() {

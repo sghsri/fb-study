@@ -14,7 +14,9 @@ class SharePopup extends Component {
     }
 
     reportButtonClick = (reason) => {
-        this.setState({ reason: reason });
+        if (reason) {
+            this.setState({ reason: reason });
+        }
     };
 
     render() {
