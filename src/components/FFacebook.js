@@ -128,7 +128,7 @@ class FFacebook extends Component {
         //now do the random varying and Log that in the
         let control_posts = static_data.posts.filter(post => post.meta.type == 'misc' || post.meta.type == 'control');
         let varied = static_data.posts.filter(post => post.meta.type != 'misc' && post.meta.type != 'control');
-        let num_varied_needed = Math.random() * (varied.length - 1) + 1;
+        let num_varied_needed = 1; //Math.random() * (varied.length - 1) + 1;
         varied = (varied.sort(() => Math.random() - 0.5)).slice(0, num_varied_needed);
 
         static_data.posts = (control_posts.concat(varied)).sort(() => Math.random() - 0.5);
