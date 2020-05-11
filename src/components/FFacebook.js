@@ -8,7 +8,7 @@ import app from "../util/firebase.js";
 import SharePopup from "./SharePopup";
 import ReportPopup from "./ReportPopup";
 import Logger from '../logging/Logger';
-var ip = require('ip');
+var uuid = require("uuid");
 
 class FFacebook extends Component {
 
@@ -21,11 +21,11 @@ class FFacebook extends Component {
       postToShare: null,
       postToReport: null,
     };
-
     let user_id = localStorage.getItem('user_id');
     let ip_address = localStorage.getItem('ip_address');
     if (!user_id) {
-      let computed_id = Math.random().toString(36).substr(0, 12);
+      let computed_id = uuid.v4();
+      console.log(computed_id);
       localStorage.setItem("user_id", computed_id);
       firebase.analytics().setUserProperties({ user_id: computed_id });
 
