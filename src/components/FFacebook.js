@@ -25,7 +25,10 @@ class FFacebook extends Component {
     let user_id = localStorage.getItem('user_id');
     let ip_address = localStorage.getItem('ip_address');
     if (!user_id) {
-      localStorage.setItem("user_id", Math.random().toString(36).substr(0, 12));
+      let computed_id = Math.random().toString(36).substr(0, 12);
+      localStorage.setItem("user_id", computed_id);
+      firebase.analytics().setUserProperties({ user_id: computed_id });
+
     }
     if (!ip_address) {
       fetch('https://api.ipify.org/?format=json')
