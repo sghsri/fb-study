@@ -12,7 +12,7 @@ class ArticalModal extends Component {
             </div>
             <div class="browser-wrap frame" width="100%" height="100%">
                 <header class="header article-container container--wide" role="banner">
-                    <div class="site-title">The Gazette Star</div>
+                    <div class="site-title">{this.props.article.publication}</div>
                 </header>
                 <div className="article-container">
                     <div className="article-header">

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import default_avatar from '../img/anon.jpg';
-import link_image from "../img/russian-warning.jpg";
-import warning_image from "../img/russian-warning.jpg";
 import { getImageURL } from '../util/util';
 import '../css/post.css';
 import Logger from '../logging/Logger';
@@ -114,16 +112,16 @@ class Post extends Component {
                         <button className="post_show-dropdown" onClick={this.toggleDropdown}><i className="i-post i-chevron-down"></i></button>
                         {this.state.showDropdown &&
                             <ul className="post__dropdown">
-                                <li className="dropdown__item">
+                                <li className="dropdown__item" onClick={() => { this.props.hidePost(post.post_id); }}>
                                     <a className="post__hide-post dropdown__item-link">
                                         <i className="i-hide-post dropdown__item-icon"></i>
                                         <div className="dropdown__item-inner">
-                                            <h4 className="dropdown__item-title">Hide Post</h4>
+                                            <h4 className="dropdown__item-title" >Hide Post</h4>
                                             <p className="dropdown__item-help">See fewer posts like this.</p>
                                         </div>
                                     </a>
                                 </li>
-                                <li className="dropdown__item">
+                                <li className="dropdown__item" onClick={() => { this.props.toggleReport(post.post_id); }}>
                                     <a className="post__report-post dropdown__item-link">
                                         <i className="i-report-post dropdown__item-icon"></i>
                                         <div className="dropdown__item-inner">
@@ -180,9 +178,16 @@ class Post extends Component {
                                 </a>
                             </li>
                             <li>
-                                <a className="post__share" onClick={() => { this.props.toggleShare(post.post_id); }}>
-                                    <i className="i-share"></i>
-                                    <span className="footer__text post__share-text">Share</span>
+                                <a className="post__share" onClick={() => { this.state.post.is_shared ? this.props.sharePost(post.post_id, true) : this.props.toggleShare(post.post_id); }}>
+                                    {this.state.post.is_shared ?
+
+                                        <span className={`footer__text post__share-text shared`}>Undo Share</span>
+                                        :
+                                        <span>
+                                            <i className="i-share"></i>
+                                            <span className={`footer__text post__share-text`}>Share</span>
+                                        </span>
+                                    }
                                 </a>
                             </li>
                         </ul>

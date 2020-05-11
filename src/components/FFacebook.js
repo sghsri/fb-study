@@ -6,6 +6,7 @@ import firebase from 'firebase';
 import ArticleModal from './ArticleModal';
 import app from "../util/firebase.js";
 import SharePopup from "./SharePopup";
+import ReportPopup from "./ReportPopup";
 import Logger from '../logging/Logger';
 
 class FFacebook extends Component {
@@ -17,6 +18,7 @@ class FFacebook extends Component {
       settings: {},
       articleToShow: null,
       postToShare: null,
+      postToReport: null,
     };
 
     let user_id = localStorage.getItem('user_id');
@@ -51,9 +53,23 @@ class FFacebook extends Component {
     });
   };
 
+  sharePost = (post_id, undo = false) => {
+    Logger.log_action('share', undo ? 'undo post shared' : 'post shared', this.state.postToShare);
+    let post = this.state.static.posts.find(p => post_id === p.post_id);
+    if (post) {
+      post.is_shared = !undo;
+    }
+    this.setState({ static: this.state.static, postToShare: null });
+    // this.toggleShare();
+  };
+
+
+
+
+
   toggleShare = (post_id = null) => {
     let post = post_id;
-    if (post) {
+    if (post != null) {
       post = this.state.static.posts.find(p => post === p.post_id);
     }
     this.setState({ postToShare: post }, () => {
@@ -63,6 +79,29 @@ class FFacebook extends Component {
         Logger.log_action('click', 'close share', this.state.postToShare);
       }
     });
+  };
+
+  toggleReport = (post_id = null) => {
+    let post = post_id;
+    if (post != null) {
+      post = this.state.static.posts.find(p => post === p.post_id);
+    }
+    this.setState({ postToReport: post }, () => {
+      if (this.state.postToReport) {
+        Logger.log_action('click', 'open report', this.state.postToReport);
+      } else {
+        Logger.log_action('click', 'close report', this.state.postToReport);
+      }
+    });
+  };
+
+  reportPost = (post_id) => {
+    Logger.log_action('report', 'post reported', this.state.postToReport);
+    let post = this.state.static.posts.find(p => post_id === p.post_id);
+    if (post) {
+      post.is_reported = true;
+    }
+    this.setState({ static: this.state.static, postToReport: null });
   };
 
   async componentDidMount() {
@@ -82,26 +121,45 @@ class FFacebook extends Component {
     }
   }
 
+  hidePost = (post_id) => {
+    console.log('hide post');
+    let post = this.state.static.posts.find(p => post_id === p.post_id);
+    if (post) {
+      Logger.log_action('hide', 'post hidden', post);
+      post.is_hidden = true;
+      console.log(post);
+      this.setState({ static: this.state.static });
+    }
+  };
+
   render() {
     return (
       <div id="app">
+        <div class="site-header">
+        </div>
         <div>
-          {this.state.static.posts && this.state.static.posts.map((post, index) =>
-            <Post
-              post={post} key={index}
-              getUserObj={this.getUserObject}
-              toggleArticle={this.toggleArticle}
-              toggleShare={this.toggleShare}
-
-
-            />)}
+          {this.state.static.posts && this.state.static.posts.map((post, index) => {
+            if (!post.is_hidden)
+              return <Post
+                post={post} key={index}
+                getUserObj={this.getUserObject}
+                toggleArticle={this.toggleArticle}
+                toggleShare={this.toggleShare}
+                sharePost={this.sharePost}
+                hidePost={this.hidePost}
+                toggleReport={this.toggleReport}
+              />;
+          })}
         </div>
 
         {this.state.articleToShow &&
           <ArticleModal article={this.state.articleToShow} toggleArticle={this.toggleArticle}></ArticleModal>
         }
         {this.state.postToShare &&
-          <SharePopup post={this.state.postToShare} toggleShare={this.toggleShare}></SharePopup>
+          <SharePopup post={this.state.postToShare} toggleShare={this.toggleShare} sharePost={this.sharePost}></SharePopup>
+        }
+        {this.state.postToReport &&
+          <ReportPopup post={this.state.postToReport} toggleReport={this.toggleReport} reportPost={this.reportPost}></ReportPopup>
         }
       </div>
     );

@@ -34,3 +34,29 @@
 .me-comment {
     margin-right: 5px;
 }
+
+.shared {
+    color: rgb(32, 120, 244) !important;
+}
+
+.report-post-container {
+    margin: 16px 32px 16px 48px;
+}
+
+.report-post-button {
+    align-items: center;
+    background: #f5f6f7;
+    border: 1px solid #dddfe2;
+    border-radius: 20px;
+    display: inline-flex;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    padding: 8px 12px;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.report-post-button-selected {
+    background: #3578e5;
+    border: 1px solid #3578e5;
+}
