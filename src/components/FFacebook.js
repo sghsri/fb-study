@@ -8,6 +8,7 @@ import app from "../util/firebase.js";
 import SharePopup from "./SharePopup";
 import ReportPopup from "./ReportPopup";
 import Logger from '../logging/Logger';
+import { invalidUserID } from '../util/util';
 var uuid = require("uuid");
 
 class FFacebook extends Component {
@@ -23,12 +24,11 @@ class FFacebook extends Component {
     };
     let user_id = localStorage.getItem('user_id');
     let ip_address = localStorage.getItem('ip_address');
-    if (!user_id) {
+    if (!user_id || invalidUserID(user_id)) {
       let computed_id = uuid.v4();
       console.log(computed_id);
       localStorage.setItem("user_id", computed_id);
       firebase.analytics().setUserProperties({ user_id: computed_id });
-
     }
     if (!ip_address) {
       fetch('https://api.ipify.org/?format=json')

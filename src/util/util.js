@@ -2,4 +2,10 @@ function getImageURL(type, url) {
     return `/${type}/${url}`;
 }
 
-export { getImageURL };
+function invalidUserID(id) {
+    return id.includes('#') || id.includes('.') || id.includes('$') || id.includes('[') || id.includes(']');
+}
+
+export { getImageURL, invalidUserID };
+
+
