@@ -24,12 +24,10 @@ class FFacebook extends Component {
 
     let user_id = localStorage.getItem('user_id');
     let ip_address = localStorage.getItem('ip_address');
-    // console.log(user_id, ip_address);
     if (!user_id) {
-      localStorage.setItem("user_id", Math.random().toString(36).substr(0, 9));
+      localStorage.setItem("user_id", Math.random().toString(36).substr(0, 12));
     }
     if (!ip_address) {
-
       fetch('https://api.ipify.org/?format=json')
         .then(response => {
           return response.json();
@@ -103,11 +101,12 @@ class FFacebook extends Component {
     });
   };
 
-  reportPost = (post_id) => {
-    Logger.log_action('report', 'post reported', this.state.postToReport);
+  reportPost = (post_id, reason) => {
+    Logger.log_action('report', 'post reported', this.state.postToReport, reason);
     let post = this.state.static.posts.find(p => post_id === p.post_id);
     if (post) {
       post.is_reported = true;
+      post.is_hidden = true;
     }
     this.setState({ static: this.state.static, postToReport: null });
   };
@@ -119,6 +118,25 @@ class FFacebook extends Component {
 
       if (settings.random_posts) {
         static_data.posts = static_data.posts.sort(() => Math.random() - 0.5);
+      }
+      if (settings.show_varied) {
+        //now do the random varying and Log that in the
+        let control_posts = static_data.posts.filter(post => post.meta.type == 'misc' || post.meta.type == 'control');
+        let varied = static_data.posts.filter(post => post.meta.type != 'misc' && post.meta.type != 'control');
+        let num_varied_needed = Math.random() * (varied.length - 1) + 1;
+        varied = (varied.sort(() => Math.random() - 0.5)).slice(0, num_varied_needed);
+
+        static_data.posts = (control_posts.concat(varied)).sort(() => Math.random() - 0.5);
+        console.log(static_data.posts);
+        let details = {
+          'feed': static_data.posts
+        };
+
+        Logger.log_meta('USER BEGINS EXPERIMENT', details);
+
+      }
+      else {
+        static_data.posts = static_data.posts.filter(post => post.meta.type == 'misc');
       }
 
       this.setState({ static: static_data, settings: settings });

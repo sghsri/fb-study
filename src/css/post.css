@@ -58,5 +58,7 @@
 
 .report-post-button-selected {
     background: #3578e5;
+    color: white;
+    outline: none;
     border: 1px solid #3578e5;
 }

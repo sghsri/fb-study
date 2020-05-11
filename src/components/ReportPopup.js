@@ -40,7 +40,7 @@ class SharePopup extends Component {
                             <footer class="modal__footer">
                                 <div>
                                     <button class="modal__button modal__button--undo" onClick={() => { this.props.toggleReport(); }}>Undo</button>
-                                    <button class="modal__button modal__button--done" onClick={() => { this.props.sharePost(post.post_id); }}>Share</button>
+                                    <button class="modal__button modal__button--done" onClick={() => { this.props.reportPost(post.post_id, this.state.reason); }}>Report</button>
                                 </div >
                             </footer >
                         </div >

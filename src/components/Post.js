@@ -121,7 +121,7 @@ class Post extends Component {
                                         </div>
                                     </a>
                                 </li>
-                                <li className="dropdown__item" onClick={() => { this.props.toggleReport(post.post_id); }}>
+                                <li className="dropdown__item" onClick={() => { this.props.reportPost(post.post_id); }}>
                                     <a className="post__report-post dropdown__item-link">
                                         <i className="i-report-post dropdown__item-icon"></i>
                                         <div className="dropdown__item-inner">
@@ -240,29 +240,30 @@ class Post extends Component {
                                     <span>
                                         <a className="comment__like">
                                             <Reactions items={reacts} onUpdate={(react_id) => { this.onCommentReact(react_id, index); }}>
-
-                                                {comment.reaction ?
-                                                    <span>
-                                                        <span className={`footer__text comment_like-text ${comment.reaction ? comment.reaction.id : ""}`}>{comment.reaction.description}</span>
-                                                    </span>
-                                                    : <span>Like</span>
+                                                <span>
+                                                    {comment.reaction ?
+                                                        <span>
+                                                            <span className={`footer__text comment_like-text ${comment.reaction ? comment.reaction.id : ""}`}>{comment.reaction.description}</span>
+                                                        </span>
+                                                        : <span>Like</span>
+                                                    }
+                                                </span>
+                                                <span className="dot comment__dot"> &middot; </span>
+                                                <span className="comment__time">{comment.time}</span>
+                                                {comment.reaction &&
+                                                    <template>
+                                                        <span className="dot comment__dot"> &middot; </span>
+                                                        <span className="comment__like-count">
+                                                            <i className="i-small i-like"></i>
+                                                1
+                                            </span>
+                                                    </template>
                                                 }
                                             </Reactions>
-                                            Like
                                         </a>
 
                                     </span>
-                                    <span className="dot comment__dot"> &middot; </span>
-                                    <span className="comment__time">{comment.time}</span>
-                                    {comment.reaction &&
-                                        <template>
-                                            <span className="dot comment__dot"> &middot; </span>
-                                            <span className="comment__like-count">
-                                                <i className="i-small i-like"></i>
-                                                1
-                                            </span>
-                                        </template>
-                                    }
+
                                 </div>
                             </article >
                         ))}

@@ -26,6 +26,27 @@ class Logger {
 
         firebase.database().ref(`data/${user_id}__${iso}`).set(log_obj);
     }
+
+    static log_meta(event, details) {
+        let user_id = localStorage.getItem('user_id');
+        let ip_address = localStorage.getItem('ip_address');
+        let date = new Date();
+        let time = date.toString();
+        let iso = date.toISOString();
+        iso = iso.substring(0, iso.indexOf('.'));
+
+
+        let log_obj = {
+            "user": user_id,
+            "ip_address": ip_address,
+            "time": time,
+            'event': event,
+            'details': details
+        };
+
+        firebase.database().ref(`data/${user_id}__${iso}`).set(log_obj);
+
+    }
 }
 
 export default Logger;
