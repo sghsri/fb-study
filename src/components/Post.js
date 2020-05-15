@@ -3,6 +3,7 @@ import default_avatar from '../img/anon.jpg';
 import { getImageURL } from '../util/util';
 import '../css/post.css';
 import Logger from '../logging/Logger';
+import * as timeago from 'timeago.js';
 
 
 import Reactions from './Reactions';
@@ -29,6 +30,9 @@ class Post extends Component {
             currentComment: "",
             comments: [],
         };
+        let time = new Date();
+        time.setHours(time.getHours() - (this.props.index * (Math.random() * 3) + 1));
+        this.state.post.time = time;
     }
 
 
@@ -106,7 +110,7 @@ class Post extends Component {
                             </div>
                             <div className="post__author-wrap">
                                 <h2 className="post__author-name">{user_obj.full_name}</h2>
-                                <p className="post__time">{post.time}</p>
+                                <p className="post__time">{timeago.format(post.time)}</p>
                             </div>
                         </header>
                         <button className="post_show-dropdown" onClick={this.toggleDropdown}><i className="i-post i-chevron-down"></i></button>

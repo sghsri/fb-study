@@ -178,6 +178,7 @@ class FFacebook extends Component {
                 toggleShare={this.toggleShare}
                 sharePost={this.sharePost}
                 hidePost={this.hidePost}
+                index={index}
                 toggleReport={this.toggleReport}
               />;
           })}

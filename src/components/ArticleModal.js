@@ -8,7 +8,7 @@ class ArticalModal extends Component {
     render() {
         return (<div class="browser-dialog">
             <div class="browser__control">
-                <button class="browser__close" onClick={() => { this.props.toggleArticle(); }}> Return to FFacebook<i class="i-close--white"></i></button>
+                <button class="browser__close" onClick={() => { this.props.toggleArticle(); }}> Return to Facebook<i class="i-close--white"></i></button>
             </div>
             <div class="browser-wrap frame" width="100%" height="100%">
                 <header class="header article-container container--wide" role="banner">
