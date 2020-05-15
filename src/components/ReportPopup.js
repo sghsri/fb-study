@@ -3,7 +3,7 @@ import { getImageURL } from '../util/util';
 import '../css/post.css';
 
 
-class SharePopup extends Component {
+class ReportPopup extends Component {
     constructor(props) {
         super(props);
 
@@ -53,4 +53,4 @@ class SharePopup extends Component {
     }
 }
 
-export default SharePopup;
+export default ReportPopup;
