@@ -48,7 +48,7 @@ class Post extends Component {
 
     submitComment = (event) => {
         if (event.key === 'Enter' && this.state.currentComment) {
-            Logger.log_action('comment', 'submit', this.state.post, this.state.currentComment);
+            Logger.log_action('comment', 'submit', { post_id: this.state.post.post_id, comment: this.state.currentComment });
             let comment_obj = {
                 "user_id": "Me",
                 "time": "now",
@@ -60,19 +60,18 @@ class Post extends Component {
     };
 
     onUpdate = (id) => {
-        console.log('hello world');
         let reaction = reacts.filter(e => e.id == id)[0];
         if (this.state.reaction && this.state.reaction.id == id || id == 'close') {
             reaction = null;
             if (this.state.reaction) {
-                Logger.log_action('reaction', `undo ${this.state.reaction.id}`, this.props.post);
+                Logger.log_action('reaction', `undo ${this.state.reaction.id}`, { post_id: this.props.post.post_id });
             }
         }
         this.setState({
             reaction: reaction,
         }, () => {
             if (this.state.reaction)
-                Logger.log_action('reaction', `set ${this.state.reaction.id}`, this.props.post);
+                Logger.log_action('reaction', `set ${this.state.reaction.id}`, { post_id: this.props.post.post_id });
         });
     };
 
@@ -83,13 +82,13 @@ class Post extends Component {
         if (curr_com.reaction && curr_com.reaction.id === id || id === 'close') {
             reaction = null;
             if (curr_com.reaction) {
-                Logger.log_action('reaction', `comment: undo ${curr_com.reaction.id}`, this.state.post, curr_com);
+                Logger.log_action('reaction', `comment: undo ${curr_com.reaction.id}`, { post_id: this.props.post.post_id, comment: curr_com.content });
             }
         }
         comments[comment_index].reaction = reaction;
         this.setState({ comments: comments }, () => {
             if (curr_com.reaction)
-                Logger.log_action('reaction', `comment: set ${curr_com.reaction.id}`, this.state.post, curr_com);
+                Logger.log_action('reaction', `comment: set ${curr_com.reaction.id}`, { post_id: this.props.post.post_id, comment: curr_com.content });
         });
     };
 

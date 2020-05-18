@@ -55,15 +55,15 @@ class FFacebook extends Component {
     }
     this.setState({ articleToShow: article }, () => {
       if (this.state.articleToShow) {
-        Logger.log_action('click', 'open article', this.state.articleToShow);
+        Logger.log_action('click', 'open article', { article_id: this.state.article_id });
       } else {
-        Logger.log_action('click', 'close article', this.state.articleToShow);
+        Logger.log_action('click', 'close article', { article_id: this.state.article_id });
       }
     });
   };
 
   sharePost = (post_id, undo = false) => {
-    Logger.log_action('share', undo ? 'undo post shared' : 'post shared', this.state.postToShare);
+    Logger.log_action('share', undo ? 'undo post shared' : 'post shared', { post_id: post_id });
     let post = this.state.static.posts.find(p => post_id === p.post_id);
     if (post) {
       post.is_shared = !undo;
@@ -83,9 +83,9 @@ class FFacebook extends Component {
     }
     this.setState({ postToShare: post }, () => {
       if (this.state.postToShare) {
-        Logger.log_action('click', 'open share', this.state.postToShare);
+        Logger.log_action('click', 'open share', { post_id: post_id });
       } else {
-        Logger.log_action('click', 'close share', this.state.postToShare);
+        Logger.log_action('click', 'close share', { post_id: post_id });
       }
     });
   };
@@ -97,16 +97,16 @@ class FFacebook extends Component {
     }
     this.setState({ postToReport: post }, () => {
       if (this.state.postToReport) {
-        Logger.log_action('click', 'open report', this.state.postToReport);
+        Logger.log_action('click', 'open report', { post_id: post_id });
       } else {
-        Logger.log_action('click', 'close report', this.state.postToReport);
+        Logger.log_action('click', 'close report', { post_id: post_id });
       }
     });
   };
 
   reportPost = (post_id, reason) => {
     if (reason) {
-      Logger.log_action('report', 'post reported', this.state.postToReport, reason);
+      Logger.log_action('report', 'post reported', { post_id: post_id, reporting_reason: reason });
       let post = this.state.static.posts.find(p => post_id === p.post_id);
       if (post) {
         post.is_reported = true;
@@ -130,15 +130,11 @@ class FFacebook extends Component {
         let varied = static_data.posts.filter(post => post.meta.type != 'misc' && post.meta.type != 'control');
         let num_varied_needed = settings.num_varied;
         varied = (varied.sort(() => Math.random() - 0.5)).slice(0, num_varied_needed);
-
         static_data.posts = (control_posts.concat(varied)).sort(() => Math.random() - 0.5);
-        console.log(static_data.posts);
-        let details = {
-          'feed': static_data.posts
-        };
 
-        Logger.log_meta('USER BEGINS EXPERIMENT', details);
 
+        localStorage.setItem('varied_post', JSON.stringify(varied[0]));
+        Logger.log_action('User begins', 'User Enters Site & Begins Experiment');
       }
       else {
         static_data.posts = static_data.posts.filter(post => post.meta.type == 'misc');
@@ -156,7 +152,7 @@ class FFacebook extends Component {
     console.log('hide post');
     let post = this.state.static.posts.find(p => post_id === p.post_id);
     if (post) {
-      Logger.log_action('hide', 'post hidden', post);
+      Logger.log_action('hide', 'post hidden', { post_id: post_id });
       post.is_hidden = true;
       console.log(post);
       this.setState({ static: this.state.static });
