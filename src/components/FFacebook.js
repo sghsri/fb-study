@@ -49,15 +49,16 @@ class FFacebook extends Component {
   };
 
   toggleArticle = (article_id = null) => {
+    let current_article = this.state.articleToShow;
     let article = article_id;
     if (article) {
       article = this.state.static.articles.find(art => article === art.article_id);
     }
     this.setState({ articleToShow: article }, () => {
       if (this.state.articleToShow) {
-        Logger.log_action('click', 'open article', { article_id: this.state.article_id });
+        Logger.log_action('click', 'open article', { article_id: article_id });
       } else {
-        Logger.log_action('click', 'close article', { article_id: this.state.article_id });
+        Logger.log_action('click', 'close article', { article_id: current_article.article_id });
       }
     });
   };
