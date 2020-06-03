@@ -127,9 +127,10 @@ class FFacebook extends Component {
       }
       if (settings.show_varied) {
         //now do the random varying and Log that in the
-        let control_posts = static_data.posts.filter(post => post.meta.type == 'misc' || post.meta.type == 'control');
-        let varied = static_data.posts.filter(post => post.meta.type != 'misc' && post.meta.type != 'control');
         let num_varied_needed = settings.num_varied;
+        let num_posts_overall = settings.num_posts_overall;
+        let control_posts = static_data.posts.filter(post => post.meta.type == 'misc' || post.meta.type == 'control').slice(0, num_posts_overall - num_varied_needed);
+        let varied = static_data.posts.filter(post => post.meta.type != 'misc' && post.meta.type != 'control');
         varied = (varied.sort(() => Math.random() - 0.5)).slice(0, num_varied_needed);
         static_data.posts = (control_posts.concat(varied)).sort(() => Math.random() - 0.5);
 

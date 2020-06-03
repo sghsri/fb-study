@@ -4,14 +4,14 @@ import "firebase/database";
 
 
 const firebase_config = {
-    apiKey: "AIzaSyD4wUM0zzDJNsdUIAhVLzOjFn8nbyh7gsc",
-    authDomain: "cme-faceboo.firebaseapp.com",
-    databaseURL: "https://cme-faceboo.firebaseio.com",
-    projectId: "cme-faceboo",
-    storageBucket: "cme-faceboo.appspot.com",
-    messagingSenderId: "931968360132",
-    appId: "1:931968360132:web:f9f282eff560795a81f391",
-    measurementId: "G-5K4LZ35VVM"
+    apiKey: "AIzaSyDPMxU4ncOx5FRC_s5MMvruRmIgUKeWjok",
+    authDomain: "cme-facebook-2.firebaseapp.com",
+    databaseURL: "https://cme-facebook-2.firebaseio.com",
+    projectId: "cme-facebook-2",
+    storageBucket: "cme-facebook-2.appspot.com",
+    messagingSenderId: "793918324079",
+    appId: "1:793918324079:web:9c76de80f0157033893c9a",
+    measurementId: "G-9FGX4CS8XW"
 };
 
 const app = firebase.initializeApp(firebase_config);
