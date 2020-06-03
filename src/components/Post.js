@@ -171,7 +171,7 @@ class Post extends Component {
                                             <span className="footer__text post__like-text">Like</span>
                                         }
                                         {post.community &&
-                                            <span className="post__time num_likes" >{post.community.likes.toLocaleString() + " likes"}</span>
+                                            <span className="post__time num_likes" >{(post.community.likes + (this.state.reaction ? 1 : 0)).toLocaleString() + " reactions"}</span>
 
                                         }
                                     </a>
