@@ -170,6 +170,10 @@ class Post extends Component {
                                             :
                                             <span className="footer__text post__like-text">Like</span>
                                         }
+                                        {post.community &&
+                                            <span className="post__time num_likes" >{post.community.likes.toLocaleString() + " likes"}</span>
+
+                                        }
                                     </a>
                                 </Reactions>
                             </li>
@@ -189,6 +193,10 @@ class Post extends Component {
                                             <i className="i-share"></i>
                                             <span className={`footer__text post__share-text`}>Share</span>
                                         </span>
+                                    }
+                                    {post.community &&
+                                        <span className="post__time num_likes" >{post.community.shares.toLocaleString() + " shares"}</span>
+
                                     }
                                 </a>
                             </li>
