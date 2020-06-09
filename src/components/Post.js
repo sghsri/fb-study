@@ -195,7 +195,7 @@ class Post extends Component {
                                         </span>
                                     }
                                     {post.community &&
-                                        <span className="post__time num_likes" >{post.community.shares.toLocaleString() + " shares"}</span>
+                                        <span className="post__time num_likes" >{(post.community.shares + post.is_shared ? 1 : 0).toLocaleString() + " shares"}</span>
 
                                     }
                                 </a>
