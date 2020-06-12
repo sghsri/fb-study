@@ -170,9 +170,11 @@ class Post extends Component {
                                             :
                                             <span className="footer__text post__like-text">Like</span>
                                         }
-                                        {post.community &&
-                                            <span className="post__time num_likes" >{(post.community.likes + (this.state.reaction ? 1 : 0)).toLocaleString() + " reactions"}</span>
-
+                                        {post.community && post.community.likes > 999 &&
+                                            <span className="post__time num_likes" >{(post.community.likes/1000).toLocaleString() + "K"}</span>
+                                        }
+                                        {post.community && post.community.likes <= 998 &&
+                                            <span className="post__time num_likes" >{(post.community.likes + (this.state.reaction ? 1 : 0)).toLocaleString()}</span>
                                         }
                                     </a>
                                 </Reactions>
@@ -194,9 +196,11 @@ class Post extends Component {
                                             <span className={`footer__text post__share-text`}>Share</span>
                                         </span>
                                     }
-                                    {post.community &&
-                                        <span className="post__time num_likes" >{post.community.shares.toLocaleString() + " shares"}</span>
-
+                                    {post.community && post.community.shares > 999 && 
+                                        <span className="post__time num_likes" >{((post.community.shares + (post.is_shared ? 1 : 0))/1000).toLocaleString() + "K shares"}</span>
+                                    }
+                                    {post.community && post.community.shares <= 999 && 
+                                        <span className="post__time num_likes" >{(post.community.shares).toLocaleString() + " shares"}</span>
                                     }
                                 </a>
                             </li>
