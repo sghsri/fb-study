@@ -73,10 +73,6 @@ class FFacebook extends Component {
     // this.toggleShare();
   };
 
-
-
-
-
   toggleShare = (post_id = null) => {
     let post = post_id;
     if (post != null) {
@@ -129,11 +125,19 @@ class FFacebook extends Component {
         //now do the random varying and Log that in the
         let num_varied_needed = settings.num_varied;
         let num_posts_overall = settings.num_posts_overall;
-        let control_posts = static_data.posts.filter(post => post.meta.type == 'misc' || post.meta.type == 'control').slice(0, num_posts_overall - num_varied_needed);
-        let varied = static_data.posts.filter(post => post.meta.type != 'misc' && post.meta.type != 'control');
-        varied = (varied.sort(() => Math.random() - 0.5)).slice(0, num_varied_needed);
-        static_data.posts = (control_posts.concat(varied)).sort(() => Math.random() - 0.5);
+        // let control_posts = static_data.posts.filter(post => post.meta.type == 'misc' || post.meta.type == 'control').slice(0, num_posts_overall - num_varied_needed);
+        
+        // get control posts
+        let control_posts = static_data.posts.filter(post => post.post_id >= 5 && post.post_id <=7);
+        console.log(control_posts);
 
+        // get varied posts
+        let varied = static_data.posts.filter(post => post.meta.type != 'misc' && post.meta.type != 'control');
+        varied.push(static_data.posts.find(post => post.post_id == 15));
+        varied = (varied.sort(() => Math.random() - 0.5)).slice(0, num_varied_needed);
+  
+        // randomized last 4 posts
+        static_data.posts = (control_posts.concat(varied)).sort(() => Math.random() - 0.5);
 
         localStorage.setItem('varied_post', JSON.stringify(varied[0]));
         Logger.log_action('User begins', 'User Enters Site & Begins Experiment');
@@ -142,6 +146,7 @@ class FFacebook extends Component {
         static_data.posts = static_data.posts.filter(post => post.meta.type == 'misc');
       }
 
+      // set state
       this.setState({ static: static_data, settings: settings });
     } catch (e) {
       console.log(e);
