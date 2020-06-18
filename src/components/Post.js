@@ -34,7 +34,6 @@ class Post extends Component {
         this.state.post.time = time;
     }
 
-
     getAvatarForUser = (user_id) => {
         let user_obj = this.props.getUserObj(user_id);
         return user_obj ? getImageURL('user', user_obj.avatar_url) : default_avatar;
@@ -155,25 +154,34 @@ class Post extends Component {
                             </div>
                         }
                         <ul className="post__action-bar">
-                            {this.state.reaction &&
-                                <li className="react-image-container">
-                                    <img className="react-image" src={this.state.reaction.img}></img>
-                                </li>
-                            }
                             <li>
                                 <Reactions items={reacts} onUpdate={this.onUpdate}>
                                     <a className="post__like">
-                                        {this.state.reaction ?
-                                            <span>
-                                                <span className={`footer__text post__like-text ${this.state.reaction ? this.state.reaction.id : ""}`}>{this.state.reaction.description}</span>
+                                        {post.community && 
+                                            <span className={`footer__text post__like-text ${this.state.reaction ? this.state.reaction.id : ""}`}>
+                                                <img class="react-image" src={reacts[0].img}/> 
+                                                <img class="react-image" src={reacts[1].img}/> 
+                                                <img class="react-image" src={reacts[2].img}/> 
                                             </span>
-                                            :
-                                            <span className="footer__text post__like-text">Like</span>
                                         }
+                                        {  // this dictates whether to display "like" or not"
+                                          !post.community && 
+                                            <span>
+                                                {this.state.reaction ?
+                                                    <span>
+                                                        <span> <img className="react-image" src={this.state.reaction.img}></img> </span>
+                                                        <span className={`footer__text post__like-text ${this.state.reaction ? this.state.reaction.id : ""}`}>1</span>
+                                                    </span>
+                                                    :
+                                                    <span className="footer__text post__like-text">Like</span>
+                                                }
+                                            </span>
+                                        }
+                                        
                                         {post.community && post.community.likes > 999 &&
                                             <span className="post__time num_likes" >{(post.community.likes/1000).toLocaleString() + "K"}</span>
                                         }
-                                        {post.community && post.community.likes <= 998 &&
+                                        {post.community && post.community.likes <= 999 &&
                                             <span className="post__time num_likes" >{(post.community.likes + (this.state.reaction ? 1 : 0)).toLocaleString()}</span>
                                         }
                                     </a>
@@ -197,11 +205,15 @@ class Post extends Component {
                                         </span>
                                     }
                                     {post.community && post.community.shares > 999 && 
-                                        <span className="post__time num_likes" >{((post.community.shares + (post.is_shared ? 1 : 0))/1000).toLocaleString() + "K shares"}</span>
+                                        <span className="post__time num_likes" >{(post.community.shares/1000).toLocaleString() + "K shares"}</span>
                                     }
                                     {post.community && post.community.shares <= 999 && 
-                                        <span className="post__time num_likes" >{(post.community.shares).toLocaleString() + " shares"}</span>
+                                        <span className="post__time num_likes" >
+                                            {(post.community.shares + (post.is_shared ? 1 : 0)).toLocaleString() + " share"}
+                                        </span>
                                     }
+                                    {post.community && post.community.shares == 1 && post.is_shared && 
+                                        <span style={{color: "#90949c"}}>s</span>} 
                                 </a>
                             </li>
                         </ul>

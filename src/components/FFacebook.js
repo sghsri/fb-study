@@ -129,7 +129,7 @@ class FFacebook extends Component {
          
          // get control posts
          let control_posts = static_data.posts.filter(post => post.post_id >= 5 && post.post_id <=7);
-         console.log(control_posts);
+        //  console.log(control_posts);
  
          // get varied posts
          let varied = static_data.posts.filter(post => post.meta.type != 'misc' && post.meta.type != 'control');

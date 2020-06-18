@@ -22,9 +22,6 @@ class Logger {
             "reporting_reason": reporting_reason || null
         };
 
-        console.log(log_obj);
-
-
         let id = `${user_id}|${iso}`;
         push_to_firebase(id, log_obj);
     }
