@@ -15,6 +15,7 @@ class FFacebook extends Component {
 
   constructor(props) {
     super(props);
+    // need to change
     this.state = {
       static: {},
       settings: {},
@@ -70,7 +71,6 @@ class FFacebook extends Component {
       post.is_shared = !undo;
     }
     this.setState({ static: this.state.static, postToShare: null });
-    // this.toggleShare();
   };
 
   toggleShare = (post_id = null) => {
@@ -118,16 +118,18 @@ class FFacebook extends Component {
       let static_data = await (await firebase.database().ref(`static`).once('value')).val();
       let settings = await (await firebase.database().ref(`settings`).once('value')).val();
 
+      // random_post is a bool value
       if (settings.random_posts) {
         static_data.posts = static_data.posts.sort(() => Math.random() - 0.5);
       }
+      // show vary is a bool value
       if (settings.show_varied) {
          //now do the random varying and Log that in the
          let num_varied_needed = settings.num_varied;
          let num_posts_overall = settings.num_posts_overall;
          // let control_posts = static_data.posts.filter(post => post.meta.type == 'misc' || post.meta.type == 'control').slice(0, num_posts_overall - num_varied_needed);
          
-         // get control posts
+         // get control posts ///////////
          let control_posts = static_data.posts.filter(post => post.post_id >= 5 && post.post_id <=7);
         //  console.log(control_posts);
  
@@ -175,13 +177,14 @@ class FFacebook extends Component {
           {this.state.static.posts && this.state.static.posts.map((post, index) => {
             if (!post.is_hidden)
               return <Post
-                post={post} key={index}
+                post={post} 
+                // key={index}
                 getUserObj={this.getUserObject}
                 toggleArticle={this.toggleArticle}
                 toggleShare={this.toggleShare}
                 sharePost={this.sharePost}
                 hidePost={this.hidePost}
-                index={index}
+                // index={index}
                 toggleReport={this.toggleReport}
               />;
           })}

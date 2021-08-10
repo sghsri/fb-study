@@ -196,7 +196,6 @@ class Post extends Component {
                             <li>
                                 <a className="post__share" onClick={() => { this.state.post.is_shared ? this.props.sharePost(post.post_id, true) : this.props.toggleShare(post.post_id); }}>
                                     {this.state.post.is_shared ?
-
                                         <span className={`footer__text post__share-text shared`}>Undo Share</span>
                                         :
                                         <span>
